@@ -178,7 +178,7 @@ if __name__ == "__main__":
 
             combine_implicant_lists[i][j] = unique_list
 
-    # display_list(combine_implicant_lists)
+    display_list(combine_implicant_lists)
 
     # 2) cover table
 
