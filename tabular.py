@@ -51,7 +51,7 @@ def find_essential():
                 essential_prime_implicant = copy.deepcopy(prime_implicant)
 
         if minterm_count == 1:
-            if essential_prime_implicant not in essentials:
+            if essential_prime_implicant[1] not in [ess[1] for ess in essentials]:
                 essentials.append(copy.deepcopy(essential_prime_implicant))
 
             for d in essential_prime_implicant[0]:
@@ -127,10 +127,10 @@ if __name__ == "__main__":
     VARIABLES = ['w', 'x', 'y', 'z']
 
     # [2, 3, 6, 9, 10, 11, 14, 15]
-    MINTERMS = [2, 3, 6, 9, 10, 11, 14, 15]
+    MINTERMS = [2, 3, 5, 12, 14]
 
     # [1, 7, 8]
-    DONTCARES = [1, 7, 8]
+    DONTCARES = [0, 4, 8, 10, 11]
 
     # 1) create list of logic combination
 
@@ -185,6 +185,7 @@ if __name__ == "__main__":
     # find all prime implicants
     prime_implicant_list = []
     essentials = []
+    multiple_essentials = []
     for i in range(len(combine_implicant_lists)):
         for j in range(len(combine_implicant_lists[i])):
             for k in range(len(combine_implicant_lists[i][j])):
@@ -216,7 +217,6 @@ if __name__ == "__main__":
                     present_minterms[m].append(index)
 
         # print(present_minterms)
-        multiple_essentials = []
 
         minterms_left = []
         for m_list in present_minterms.values():
@@ -237,7 +237,7 @@ if __name__ == "__main__":
 
             multiple_essentials.append(new_essentials)
 
-    if multiple_essentials is not None:
+    if len(multiple_essentials) > 0:
         for essentials in multiple_essentials:
             # display essentials
             output = ""
@@ -255,5 +255,4 @@ if __name__ == "__main__":
             output += bit_to_variable(ess[1])
             if i < len(essentials) - 1:
                 output += " + "
-
         print("simplified terms -->", output)
